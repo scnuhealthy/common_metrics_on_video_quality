@@ -24,8 +24,10 @@ def get_feats(videos, detector, device, bs=10):
     detector_kwargs = dict(rescale=False, resize=False, return_features=True) # Return raw features before the softmax layer.
     feats = np.empty((0, 400))
     with torch.no_grad():
+        # feats = torch.stack([preprocess_single(video) for video in videos])
+        # feats = detector(feats.to(device), **detector_kwargs).detach().cpu().numpy()
         for i in range((len(videos)-1)//bs + 1):
-            feats = np.vstack([feats, detector(torch.stack([preprocess_single(video) for video in videos[i*bs:(i+1)*bs]]).to(device), **detector_kwargs).detach().cpu().numpy()])
+           feats = np.vstack([feats, detector(torch.stack([preprocess_single(video) for video in videos[i*bs:(i+1)*bs]]).to(device), **detector_kwargs).detach().cpu().numpy()])
     return feats
 
 

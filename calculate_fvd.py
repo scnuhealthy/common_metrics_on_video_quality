@@ -1,3 +1,4 @@
+from scipy import linalg
 from fvd.fvd import get_fvd_feats, frechet_distance, load_i3d_pretrained
 import numpy as np
 import torch
@@ -46,7 +47,7 @@ def calculate_fvd(videos1, videos2, device):
         # get FVD features
         feats1 = get_fvd_feats(videos_clip1, i3d=i3d, device=device)
         feats2 = get_fvd_feats(videos_clip2, i3d=i3d, device=device)
-      
+
         # calculate FVD when timestamps[:clip]
         fvd_results[clip_timestamp] = frechet_distance(feats1, feats2)
 

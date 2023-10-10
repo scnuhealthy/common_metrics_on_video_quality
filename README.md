@@ -160,3 +160,21 @@ The result shows: a all-zero matrix and a all-one matrix, their FVD-30 (FVD[:30]
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=JunyaoHu/common_metrics_on_video_quality&type=Date)](https://star-history.com/#JunyaoHu/common_metrics_on_video_quality&Date)
+
+
+# VFID
+python calculate_fid.py 需要设定两个视频目录，一个是生成的，另一个是GT. 视频目录的视频数量要是4的倍数（原因未知，可能与torchscript这种模型读取运行方式有关）.
+运行流程:
+
+```
+def load_feature():
+    videos_feature = []
+    for every video:
+        feature = I3D(video)
+        videos_feature.append(feature)
+    return videos_feature
+
+features_predict = load_feature(gt_videos)
+features_gt = load_feature(predict_videos)
+calculate_fid(features_predict,features_gt)  # 这步和图像的计算是一样的
+```
